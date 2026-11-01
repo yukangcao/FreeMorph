@@ -1,3 +1,4 @@
+import json
 import os
 
 import torch
@@ -159,7 +160,7 @@ if __name__ == "__main__":
     injection_noise = torch.randn((1, 4, 96, 96), device=device, dtype=dtype_weight)
     with open(args.json_path) as f:
         for idx, i in enumerate(tqdm(f, disable=not accelerater.is_local_main_process)):
-            i = eval(i)
+            i = json.loads(i)
             image_paths = i["image_paths"]
             print(image_paths)
             prompts = i["prompts"]
